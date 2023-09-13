@@ -27,7 +27,9 @@ public:
   // función para obtener las letras del término booleano
   vector<string> getVars(){
     vector<string> v;
-    string letters[] = {"a", "b", "c", "d", "e", "f", "g", "h"};
+    string letters[] = {
+      "a", "b", "c", "d", "e", "f", "g", "h"
+    };
     for (int i = 0; i < this->VARIABLES; i++)
       v.push_back(letters[i]);
     return v;
@@ -174,29 +176,27 @@ public:
 int main()
 {
   char check = 'y';
-  while (check == 'y')
-  {
-    int no;
+  while (check == 'y'){
+    int num;
     cout << endl
          << "Introduzca el número de variables:" << endl;
-    cin >> no;
-    if (no > 8 || no < 1)
-    {
+    cin >> num;
+    if (num > 8 || num < 1) {
       cout << "Número de variables no válido (1-8)" << endl;
       continue;
     }
-    QM q(no);
+
+    QM q(num);
 
     string temp = "";
-    cout << "Ingrese los términos mínimos (RANGO = 0-" << pow(2, no) - 1 << ") Separados por comas:" << endl;
+    cout << "Ingrese los términos mínimos (RANGO = 0-" << pow(2, num) - 1 << ") Separados por comas:" << endl;
     cin >> temp;
 
-    // splitting the input
+    // dividiendo la entrada
     vector<string> minterms;
     istringstream f(temp);
     string s;
-    while (getline(f, s, ','))
-    {
+    while (getline(f, s, ',')) {
       // cout << s << endl;
       int t = atoi(s.data());
       minterms.push_back(q.pad(q.decToBin(t)));
@@ -204,8 +204,7 @@ int main()
 
     sort(minterms.begin(), minterms.end());
 
-    do
-    {
+    do{
       minterms = q.reduce(minterms);
       sort(minterms.begin(), minterms.end());
     } while (!q.VectorsEqual(minterms, q.reduce(minterms)));
